@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template >
   <form method="post" action="">
     <h3>基本信息</h3>
     <hr/>
@@ -83,7 +83,7 @@
         </td>
         <td>
           <select v-if="hasParent" v-model="form.parentId">
-            <option v-for="item in form.allFields" :value="item.id" :label="item.enName"></option>
+            <option v-for="item in form.allFields" :key="item.id" :value="item.id" :label="item.enName"></option>
           </select>
         </td>
       </tr>
@@ -93,7 +93,8 @@
         </td>
         <td>
           <label>是<input type="radio" name="valueDomainType" v-bind:value="true" v-model="form.valueDomainType"></label>
-          <label>否<input type="radio" name="valueDomainType" v-bind:value="false" v-model="form.valueDomainType"></label>
+          <label>否<input type="radio" name="valueDomainType" v-bind:value="false"
+                         v-model="form.valueDomainType"></label>
         </td>
       </tr>
       <table v-if="form.valueDomainType">
@@ -135,103 +136,103 @@
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
-    data () {
-      return {
-        hasProp: false,
-        hasParent: false,
-        parentPropValues: [{id: 1, value: 'value1'}, {id: 2, value: 'value2'}],
-        form: {
-          enName: '',
-          chName: '',
-          valueUnits: '',
-          valueType: '',
-          desc: '',
-          allProps: [1, 2, 3],
-          allFields: [{id: 1, enName: 'name'}],
-          valueCalculateType: '',
-          valueDomainType: false,
-          props: [
-            {
-              name: '',
-              allValues: [1, 2, 3, 4],
-              values: []
-            }
-          ],
-          parentId: '',
-          values: [
-            {
-              value: '',
-              desc: '',
-              parentValue: ''
-            }
-          ]
-        },
-        valueTypes: [
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      hasProp: false,
+      hasParent: false,
+      parentPropValues: [{id: 1, value: 'value1'}, {id: 2, value: 'value2'}],
+      form: {
+        enName: '',
+        chName: '',
+        valueUnits: '',
+        valueType: '',
+        desc: '',
+        allProps: [1, 2, 3],
+        allFields: [{id: 1, enName: 'name'}],
+        valueCalculateType: '',
+        valueDomainType: false,
+        props: [
           {
-            label: 'STRING',
-            value: 1
-          },
-          {
-            label: 'TINYINT',
-            value: 2
-          },
-          {
-            label: 'SMALLINT',
-            value: 3
+            name: '',
+            allValues: [1, 2, 3, 4],
+            values: []
           }
         ],
-        calculateTypes: [
+        parentId: '',
+        values: [
           {
-            label: 'count()',
-            value: 1
-          },
-          {
-            label: 'count(distinct())',
-            value: 2
+            value: '',
+            desc: '',
+            parentValue: ''
           }
         ]
+      },
+      valueTypes: [
+        {
+          label: 'STRING',
+          value: 1
+        },
+        {
+          label: 'TINYINT',
+          value: 2
+        },
+        {
+          label: 'SMALLINT',
+          value: 3
+        }
+      ],
+      calculateTypes: [
+        {
+          label: 'count()',
+          value: 1
+        },
+        {
+          label: 'count(distinct())',
+          value: 2
+        }
+      ]
+    }
+  },
+  methods: {
+    changeHasProp (value) {
+      if (value === true) {
+        let props = this.form.props || []
+        !props.length &&
+        this.form.props.push({
+          name: '',
+          values: [],
+          allValues: []
+        })
       }
     },
-    methods: {
-      changeHasProp (value) {
-        if (value === true) {
-          let props = this.form.props || []
-          !props.length &&
-          this.form.props.push({
-            name: '',
-            values: [],
-            allValues: []
-          })
-        }
-      },
-      addProp (index) {
-        let dealIndex = index + 1
-        let newItem = {
-          name: '',
-          value: [],
-          allValues: [1, 2, 3, 4]
-        }
-        this.form.props.splice(dealIndex, 0, newItem)
-      },
-      removeProp (index) {
-        this.form.props.splice(index, 1)
-      },
-      addEnum (index) {
-        let dealIndex = index + 1
-        let newItem = {
-          value: '',
-          desc: '',
-          parentValue: ''
-        }
-        this.form.values.splice(dealIndex, 0, newItem)
-      },
-      removeEnum (index) {
-        this.form.values.splice(index, 1)
+    addProp (index) {
+      let dealIndex = index + 1
+      let newItem = {
+        name: '',
+        value: [],
+        allValues: [1, 2, 3, 4]
       }
+      this.form.props.splice(dealIndex, 0, newItem)
+    },
+    removeProp (index) {
+      this.form.props.splice(index, 1)
+    },
+    addEnum (index) {
+      let dealIndex = index + 1
+      let newItem = {
+        value: '',
+        desc: '',
+        parentValue: ''
+      }
+      this.form.values.splice(dealIndex, 0, newItem)
+    },
+    removeEnum (index) {
+      this.form.values.splice(index, 1)
     }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

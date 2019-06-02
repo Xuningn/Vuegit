@@ -9,19 +9,19 @@
     <br>
 
     <label>子组件2：</label>
-<!--1. $emit & v-on-->
-<!--    <child2 @input="onInput" :value="inputVal"></child2>-->
+    <!--1. $emit & v-on-->
+    <!--    <child2 @input="onInput" :value="inputVal"></child2>-->
 
-<!--2. v-model   -->
-<!--    <child2 v-model="inputVal"></child2>-->
+    <!--2. v-model   -->
+    <!--    <child2 v-model="inputVal"></child2>-->
 
-<!--3.  .sync  -->
+    <!--3.  .sync  -->
     <child2 :value.sync="inputVal"></child2>
 
-<!--4.  .sync语法糖实为@update  -->
-<!--    <child2 :value="inputVal" @update:value="onInput"></child2>-->
+    <!--4.  .sync语法糖实为@update  -->
+    <!--    <child2 :value="inputVal" @update:value="onInput"></child2>-->
 
-    <p>inputVal: &nbsp&nbsp{{ inputVal }}</p>
+    <p>inputVal: &nbsp; &nbsp;{{ inputVal }}</p>
     <button @click="changeInputval">changeInputval</button>
 
     <br>
@@ -37,16 +37,17 @@
     </child3>
 
     <h1>动态组件</h1>
-    <div >
-    <button type="button"  @click="changeComponent(child1)">组件1</button>
-    <button type="button"  @click="changeComponent(child2)">组件2</button>
+    <div>
+      <button type="button" @click="changeComponent(child1)">组件1</button>
+      <button type="button" @click="changeComponent(child2)">组件2</button>
       <br>
       <br>
-      <keep-alive>
-        <component :is="chooseComponent"></component>
-      </keep-alive>
+      <transition name="switch">
+        <keep-alive>
+          <component :is="chooseComponent"></component>
+        </keep-alive>
+      </transition>
     </div>
-
 
     <h1>访问子组件实例或子元素</h1>
     <child2 :value.sync="inputVal" ref="usernameInput"></child2>
@@ -57,47 +58,53 @@
 </template>
 
 <script>
-  import Child1 from './Child1'
-  import Child2 from './Child2'
-  import Child3 from './Child3'
-  import ToDoList from './ToDoList'
+import Child1 from './Child1'
+import Child2 from './Child2'
+import Child3 from './Child3'
+import ToDoList from './ToDoList'
 
-  export default {
-    name: 'Father',
-    components: {ToDoList, Child3, Child1, Child2},
-    data() {
-      return {
-        msgFromChild1: '',
-        inputVal: '',
-        chooseComponent: 'ToDoList',
-        child1: 'ToDoList',
-        child2: 'child2',
-        msg: ''
-      }
+export default {
+  name: 'Father',
+  components: {ToDoList, Child3, Child1, Child2},
+  data () {
+    return {
+      msgFromChild1: '',
+      inputVal: '',
+      chooseComponent: 'ToDoList',
+      child1: 'ToDoList',
+      child2: 'child2',
+      msg: ''
+    }
+  },
+  methods: {
+    getEventFromChild1: function (msg) {
+      this.msgFromChild1 = msg
     },
-    methods: {
-      getEventFromChild1: function(msg) {
-        this.msgFromChild1 = msg
-      },
-      onInput: function(val) {
-        this.inputVal = val
-      },
-      changeInputval: function() {
-        this.inputVal = "我变了"
-      },
-      changeComponent: function(index) {
-        this.chooseComponent = index
-      },
-      showMsgFromChild: function() {
-        this.msg = this.$refs.usernameInput.value
-      },
-      focus: function() {
-        this.$refs.usernameInput.focus()
-      }
+    onInput: function (val) {
+      this.inputVal = val
+    },
+    changeInputval: function () {
+      this.inputVal = '我变了'
+    },
+    changeComponent: function (index) {
+      this.chooseComponent = index
+    },
+    showMsgFromChild: function () {
+      this.msg = this.$refs.usernameInput.value
+    },
+    focus: function () {
+      this.$refs.usernameInput.focus()
     }
   }
+}
 </script>
 
 <style scoped>
+  .switch-enter-active, .switch-leave-active {
+    transition: opacity .5s;
+  }
 
+  .switch-enter, .switch-leave-to {
+    opacity: 0;
+  }
 </style>
