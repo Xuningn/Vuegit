@@ -49,6 +49,8 @@
       </transition>
     </div>
 
+    <!--git test-->
+
     <h1>访问子组件实例或子元素</h1>
     <child2 :value.sync="inputVal" ref="usernameInput"></child2>
     <button @click="showMsgFromChild">显示子元素数据</button>
