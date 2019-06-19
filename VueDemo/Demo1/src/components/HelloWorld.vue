@@ -134,6 +134,7 @@
     </table>
   </form>
   <p>git test</p>
+  <p>git test2</p>
 </template>
 
 <script>
