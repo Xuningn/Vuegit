@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item, i) in storeMenus" :key="item.path">
+      <li v-for="(item) in storeMenus" :key="item.path">
         <router-link :to="item.path">
           <span>{{ item.name }}</span>
         </router-link>
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-    export default {
-      name: "navBar",
-      computed: {
-        storeMenus() {
-          return this.$store.state.menus
-        }
-      }
+export default {
+  name: 'navBar',
+  computed: {
+    storeMenus() {
+      return this.$store.state.menus
     }
+  }
+}
 </script>
 
 <style scoped>
