@@ -6,7 +6,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/navbar',
+      name: 'navBar',
+      component: () => import(/* webpackChunkName: "group-home" */ '@/components/navBar')
+    },
+    {
+      path: '/helloworld',
       name: 'HelloWorld',
       component: () => import(/* webpackChunkName: "group-home" */ '@/components/HelloWorld')
     },

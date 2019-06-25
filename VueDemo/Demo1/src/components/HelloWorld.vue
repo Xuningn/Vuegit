@@ -1,140 +1,140 @@
 <template >
-  <form method="post" action="">
-    <h3>基本信息</h3>
-    <hr/>
-    <table>
-      <tr>
-        <td>
-          <label for="enName">英文名称：</label>
-          <input type="text" id="enName" name="enName" v-model="form.enName">
-        </td>
-        <td>
-          <label for="chName">中文名称：</label>
-          <input type="text" id="chName" name="chName" v-model="form.chName">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="valueType">数据类型：</label>
-          <select id="valueType" name="valueType" v-model="form.valueType">
-            <option v-for="item in valueTypes" :label="item.label" :key="'valueType' + item.value"
-                    :value="item.value"></option>
-          </select>
-        </td>
-        <td>
-          <label for="valueUnit">单位：</label>
-          <input type="text" id="valueUnit" name="valueUnit" v-model="form.valueUnit">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="desc">字段描述：</label>
-          <textarea id="desc" name="desc" v-model="form.desc"></textarea>
-        </td>
-      </tr>
-    </table>
-    <h3>属性信息</h3>
-    <hr/>
-    <table>
-      <tr>
-        <label>添加属性</label>
-        <label>是<input type="radio" name="addProp" v-bind:value="true" v-model="hasProp"
-                       @change="changeHasProp"></label>
-        <label>否<input type="radio" name="addProp" v-bind:value="false" v-model="hasProp"></label>
-      </tr>
-
-      <div v-if="hasProp">
-
+  <div>
+    <form method="post" action="">
+      <h3>基本信息</h3>
+      <hr/>
+      <table>
         <tr>
-          <th>属性名</th>
-          <th>属性值</th>
-          <th>添加</th>
-        </tr>
-        <tr v-for="(row, index) in form.props" :key="'props' + index">
           <td>
-            <select v-model="row.name">
-              <option v-for="item in form.allProps" :key="'propname' + item" :value="item" :label="item"></option>
-            </select>
+            <label for="enName">英文名称：</label>
+            <input type="text" id="enName" name="enName" v-model="form.enName">
           </td>
           <td>
-            <select v-model="row.values">
-              <option v-for="item in row.allValues" :key="'propvalue' + item" :value="item" :label="item"></option>
-            </select>
-          </td>
-          <td>
-            <button type="button" @click="addProp(index)">+</button>
-            <button type="button" @click="removeProp(index)" :disabled="index === 0">-</button>
+            <label for="chName">中文名称：</label>
+            <input type="text" id="chName" name="chName" v-model="form.chName">
           </td>
         </tr>
-
-      </div>
-    </table>
-    <h3>字段构成</h3>
-    <hr/>
-    <table>
-
-      <tr>
-        <td>
-          <label>存在父级字段</label>
-        </td>
-        <td>
-          <label>是<input type="radio" name="hasParent" v-bind:value="true" v-model="hasParent"/></label>
-          <label>否<input type="radio" name="hasParent" v-bind:value="false" v-model="hasParent"/></label>
-        </td>
-        <td>
-          <select v-if="hasParent" v-model="form.parentId">
-            <option v-for="item in form.allFields" :key="item.id" :value="item.id" :label="item.enName"></option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>枚举型</label>
-        </td>
-        <td>
-          <label>是<input type="radio" name="valueDomainType" v-bind:value="true" v-model="form.valueDomainType"></label>
-          <label>否<input type="radio" name="valueDomainType" v-bind:value="false"
-                         v-model="form.valueDomainType"></label>
-        </td>
-      </tr>
-      <table v-if="form.valueDomainType">
         <tr>
-          <th>枚举值</th>
-          <th>描述</th>
-          <th>添加</th>
-        </tr>
-        <tr v-for="(row, index) in form.values" :key="'props' + index">
           <td>
-            <input palceholder="输入枚举值" v-model="row.value">
-          </td>
-          <td>
-            <input placeholder="输入描述" v-model="row.desc">
-          </td>
-          <td v-if="hasParent">
-            <select v-model="row.parentValue">
-              <option v-for="(item, index) in parentPropValues" :key="'parent' + item.value + index" :label="item.value"
+            <label for="valueType">数据类型：</label>
+            <select id="valueType" name="valueType" v-model="form.valueType">
+              <option v-for="item in valueTypes" :label="item.label" :key="'valueType' + item.value"
                       :value="item.value"></option>
             </select>
           </td>
           <td>
-            <button type="button" @click="addEnum(index)">+</button>
-            <button type="button" @click="removeEnum(index)" :disabled="index === 0">-</button>
+            <label for="valueUnit">单位：</label>
+            <input type="text" id="valueUnit" name="valueUnit" v-model="form.valueUnit">
           </td>
         </tr>
-
+        <tr>
+          <td>
+            <label for="desc">字段描述：</label>
+            <textarea id="desc" name="desc" v-model="form.desc"></textarea>
+          </td>
+        </tr>
       </table>
-      <tr>
-        <label>计算方式</label>
-        <td>
-          <select v-model="form.valueCalculateType">
-            <option v-for="item in calculateTypes" :key="'calculateType' + item.value" :label="item.label"></option>
-          </select>
-        </td>
-      </tr>
-    </table>
-  </form>
-  <p>git test</p>
-  <p>git test2</p>
+      <h3>属性信息</h3>
+      <hr/>
+      <table>
+        <tr>
+          <label>添加属性</label>
+          <label>是<input type="radio" name="addProp" v-bind:value="true" v-model="hasProp"
+                         @change="changeHasProp"></label>
+          <label>否<input type="radio" name="addProp" v-bind:value="false" v-model="hasProp"></label>
+        </tr>
+
+        <div v-if="hasProp">
+
+          <tr>
+            <th>属性名</th>
+            <th>属性值</th>
+            <th>添加</th>
+          </tr>
+          <tr v-for="(row, index) in form.props" :key="'props' + index">
+            <td>
+              <select v-model="row.name">
+                <option v-for="item in form.allProps" :key="'propname' + item" :value="item" :label="item"></option>
+              </select>
+            </td>
+            <td>
+              <select v-model="row.values">
+                <option v-for="item in row.allValues" :key="'propvalue' + item" :value="item" :label="item"></option>
+              </select>
+            </td>
+            <td>
+              <button type="button" @click="addProp(index)">+</button>
+              <button type="button" @click="removeProp(index)" :disabled="index === 0">-</button>
+            </td>
+          </tr>
+
+        </div>
+      </table>
+      <h3>字段构成</h3>
+      <hr/>
+      <table>
+
+        <tr>
+          <td>
+            <label>存在父级字段</label>
+          </td>
+          <td>
+            <label>是<input type="radio" name="hasParent" v-bind:value="true" v-model="hasParent"/></label>
+            <label>否<input type="radio" name="hasParent" v-bind:value="false" v-model="hasParent"/></label>
+          </td>
+          <td>
+            <select v-if="hasParent" v-model="form.parentId">
+              <option v-for="item in form.allFields" :key="item.id" :value="item.id" :label="item.enName"></option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>枚举型</label>
+          </td>
+          <td>
+            <label>是<input type="radio" name="valueDomainType" v-bind:value="true" v-model="form.valueDomainType"></label>
+            <label>否<input type="radio" name="valueDomainType" v-bind:value="false"
+                           v-model="form.valueDomainType"></label>
+          </td>
+        </tr>
+        <table v-if="form.valueDomainType">
+          <tr>
+            <th>枚举值</th>
+            <th>描述</th>
+            <th>添加</th>
+          </tr>
+          <tr v-for="(row, index) in form.values" :key="'props' + index">
+            <td>
+              <input palceholder="输入枚举值" v-model="row.value">
+            </td>
+            <td>
+              <input placeholder="输入描述" v-model="row.desc">
+            </td>
+            <td v-if="hasParent">
+              <select v-model="row.parentValue">
+                <option v-for="(item, index) in parentPropValues" :key="'parent' + item.value + index" :label="item.value"
+                        :value="item.value"></option>
+              </select>
+            </td>
+            <td>
+              <button type="button" @click="addEnum(index)">+</button>
+              <button type="button" @click="removeEnum(index)" :disabled="index === 0">-</button>
+            </td>
+          </tr>
+
+        </table>
+        <tr>
+          <label>计算方式</label>
+          <td>
+            <select v-model="form.valueCalculateType">
+              <option v-for="item in calculateTypes" :key="'calculateType' + item.value" :label="item.label"></option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </template>
 
 <script>
